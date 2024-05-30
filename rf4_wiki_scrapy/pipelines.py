@@ -11,6 +11,7 @@ import pymysql
 from itemadapter import ItemAdapter
 
 class MySQLPipeline:
+    # Static variable to ensure SQL script is executed only once
 
     def open_spider(self, spider):
         self.connection = pymysql.connect(
@@ -22,17 +23,7 @@ class MySQLPipeline:
             cursorclass=pymysql.cursors.DictCursor
         )
         self.cursor = self.connection.cursor()
-
-        # Read and execute SQL file
-
-        with open(r'db.sql', 'r', encoding='utf-8') as f:
-            sql_script = f.read()
-            print(sql_script)
-        for statement in sql_script.split(';'):
-            if statement.strip():
-                self.cursor.execute(statement)
-        self.connection.commit()
-
+          
         # Connect to the newly created database
         self.connection.select_db(spider.settings.get('MYSQL_DATABASE'))
 

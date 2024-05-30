@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS rf4_wiki;
+DROP DATABASE IF EXISTS rf4_wiki;
 CREATE DATABASE rf4_wiki;
 USE rf4_wiki;
 
