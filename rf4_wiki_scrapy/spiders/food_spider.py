@@ -36,7 +36,7 @@ class FoodSpider(scrapy.Spider):
         item['cls'] = response.css("div.attr-list")[0].css('div.attr-box')[2].css('span::text')[1].get()
         try:
             item['producer'] = response.css("div.attr-list")[0].css('div.attr-box')[3].css('span::text')[1].get()
-            item['producer'] = producer.replace("\ufeff", "")
+            item['producer'] = item['producer'].replace("\ufeff", "")
         except Exception as e:
             item['producer'] = ""
 

@@ -41,15 +41,7 @@ class MySQLPipeline:
 
     def process_item(self, item, spider):
         adapter = ItemAdapter(item)
-        sql = "INSERT INTO food (name, description, img, type, class, producer, price) VALUES (%s, %s, %s, %s, %s, %s, %s)"
-        self.cursor.execute(sql, (
-            adapter.get('name'),
-            adapter.get('description'),
-            adapter.get('img'),
-            adapter.get('type'),
-            adapter.get('cls'),
-            adapter.get('producer'),
-            adapter.get('price')
-        ))
+        sql = item.sql
+        self.cursor.execute(sql, tuple((adapter.get(filed) for filed in item.fields_list)))
         self.connection.commit()
         return item
